@@ -3,3 +3,7 @@
 
 # Python
 venv/
+.venv/
+
+# Idea
+.idea/

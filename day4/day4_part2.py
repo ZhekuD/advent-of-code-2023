@@ -16,7 +16,7 @@ class LotteryCalculator:
             file_string = file_string.replace('\n', '')
             card_number, winning_numbers, my_numbers = self._parse_file_string(file_string)
             # calculate the number of winning numbers
-            winning_numbers_count = self._count_winnig_numbers(winning_numbers, my_numbers)
+            winning_numbers_count = self._count_winning_numbers(winning_numbers, my_numbers)
 
             # add 1 to result for the card itself and 1 for each copy of the card
             number_of_copies = 1 + self.scratch_card_dict.get(card_number, 0)
@@ -36,7 +36,8 @@ class LotteryCalculator:
 
         return self.result_sum
 
-    def _parse_file_string(self, file_string: str) -> tuple[int, list[str], list[str]]:
+    @staticmethod
+    def _parse_file_string(file_string: str) -> tuple[int, list[str], list[str]]:
         # string example: Card   1:  4 16 87 61 11 37 43 25 49 17 | 54 36 14 55 83 58 43 15 87 17 97 11 62 75 37  4 49 80 42 61 20 79 25 24 16
         card, numbers = file_string.split(': ')
         card_number = int(card.split(' ')[-1])
@@ -49,8 +50,9 @@ class LotteryCalculator:
         my_numbers = [num for num in my_numbers if num != '']
 
         return card_number, winning_numbers, my_numbers
-    
-    def _count_winnig_numbers(self, winning_numbers: list[str], my_numbers: list[str]) -> int:
+
+    @staticmethod
+    def _count_winning_numbers(winning_numbers: list[str], my_numbers: list[str]) -> int:
         # set intersection to find the elements that are in both lists
         return len(set(winning_numbers) & set(my_numbers))
 
